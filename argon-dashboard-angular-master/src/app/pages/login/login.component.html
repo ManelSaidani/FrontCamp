@@ -26,14 +26,15 @@
             <small>sign in with credentials</small>
           </div>
           <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-            <div class="form-group">
+            <div  class="form-group mb-3">
+
               <label for="username">Email</label> <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required #username="ngModel" />
-              <div class="alert alert-danger" role="alert" *ngIf="f.submitted && username.invalid">Username is required!</div>
+              <div  role="alert" *ngIf="f.submitted && username.invalid">Email is required!</div>
             </div>
-            <div class="form-group">
+            <div  class="form-group mb-3">
               <label for="password">Password</label> <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6"
                 #password="ngModel" />
-              <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
+              <div role="alert" *ngIf="f.submitted && password.invalid">
                 <div *ngIf="password.errors.required">Password is required</div>
                 <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
               </div>
@@ -48,8 +49,9 @@
               <p class="content-divider center mt-3">
                 <span>or</span>
               </p>
-              <p class="social-login text-center">
-                Sign in with:
+              <div class="text-center text-muted mb-4">
+                <small>sign in with credentials</small>
+              <div>
                 <a href="{{ googleURL }}" class="btn btn-neutral btn-icon">
                   <span class="btn-inner--icon"><img src="../assets/img/icons/common/google.svg"></span>
                   <span class="btn-inner--text">Google</span> </a>
@@ -59,15 +61,17 @@
                 <a href="{{ githubURL }}"class="btn btn-neutral btn-icon">
                   <span class="btn-inner--icon"><img src="../assets/img/icons/common/github.svg"></span>
                   <span class="btn-inner--text">Github</span></a>
-                <a href="{{ linkedinURL }}"class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"><img src="../assets/img/icons/common/google.svg"></span>
-                  <span class="btn-inner--text">Linkedin</span></a>
-              </p>
+
+                </div>
+              </div>
+          
             </div>
           </form>
         </div>
       </div>
-      <div class="alert alert-success" *ngIf="isLoggedIn">Welcome {{currentUser.displayName}} <br>Logged in as {{ currentUser.roles }}.</div>
+      <div  *ngIf="isLoggedIn">
+        <a routerLinkActive="active" [routerLink]="['/dashboard']" class="text-light"></a>
+      </div>
       <div class="row mt-3">
         <div class="col-6 text-right">
           <a routerLinkActive="active" [routerLink]="['/register']" class="text-light"><small>Create new account</small></a>
