@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
 declare interface RouteInfo {
     path: string;
@@ -26,13 +27,33 @@ export class SidebarComponent implements OnInit {
 
   public menuItems: any[];
   public isCollapsed = true;
+  private roles: string[];
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showModeratorBoard = false;
+  username: string;
+  constructor(private router: Router , private tokenStorageService: TokenStorageService)  { }
 
-  constructor(private router: Router) { }
-
-  ngOnInit() {
+  ngOnInit() : void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+ 
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+ 
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+ 
+      this.username = user.displayName;
+    }
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
    });
   }
+  logout(): void {
+    this.tokenStorageService.signOut();
+    this.router.navigateByUrl('/dashboard');
+  }
+  
 }

@@ -70,8 +70,12 @@
         </div>
       </div>
       <div  *ngIf="isLoggedIn">
-        <a routerLinkActive="active" [routerLink]="['/dashboard']" class="text-light"></a>
-      </div>
+        <div>  <a routerLinkActive="active" [routerLink]="['/dashboard']" class="text-light"></a></div>
+        <div  *ngIf="showAdminBoard"><a href="/admin"  routerLink="/admin">Admin Board</a></div>
+        <div ><a href="/user"  *ngIf="isLoggedIn" routerLink="/user">User</a></div>
+          <!-- <a routerLinkActive="active" [routerLink]="['/dashboard']" class="text-light"></a> -->
+        </div>
+   
       <div class="row mt-3">
         <div class="col-6 text-right">
           <a routerLinkActive="active" [routerLink]="['/register']" class="text-light"><small>Create new account</small></a>
