@@ -35,5 +35,16 @@ export class BoardAdminComponent implements OnInit {
       }
     );
   }
+  removeUser(userId: number) {
+    this.userService.removeUser(userId).subscribe(
+      () => {
+        // If the user was removed successfully, remove it from the local users array.
+        this.users = this.users.filter(user => user.id !== userId);
+      },
+      (error) => {
+        console.error('Error removing user:', error);
+      }
+    );
+  }
 
 }

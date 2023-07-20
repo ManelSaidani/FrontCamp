@@ -33,5 +33,7 @@ export class UserService {
   fetchUsers(): Observable<any[]> {
     return this.http.get<any[]>(AppConstants.API_URL + 'allusers');
   }
-
+  removeUser(userId: number): Observable<any> {
+    return this.http.delete<any>(AppConstants.API_URL + 'delete/' + userId);
+  }
 }
