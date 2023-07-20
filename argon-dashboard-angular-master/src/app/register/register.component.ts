@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
+
   form: any = {};
   isSuccessful = false;
   isSignUpFailed = false;
@@ -33,5 +34,4 @@ export class RegisterComponent implements OnInit {
   }
 
 }
-
 
