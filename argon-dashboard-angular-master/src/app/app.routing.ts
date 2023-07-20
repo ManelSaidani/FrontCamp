@@ -2,61 +2,24 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
-
-const routes: Routes =[
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-  }, {
-    path: '',
-    component: AdminLayoutComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('src/app/layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
-      }
-    ]
-  },
-  
-  {
-    path: '',
-    component: UserLayoutComponent,
-
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('src/app/layouts/user-layout/user-layout.module').then(m => m.UserLayoutModule)
-      }
-    ]
-  }, {
-    path: '',
-    component: AuthLayoutComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('src/app/layouts/auth-layout/auth-layout.module').then(m => m.AuthLayoutModule)
-      }
-    ]
-  }, {
-    path: '**',
-    redirectTo: 'login'
-  }
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { BoardUserComponent } from './board-user/board-user.component';
+import { BoardAdminComponent } from './board-admin/board-admin.component';
+const routes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: UserProfileComponent},
+  { path: 'user', component: BoardUserComponent },
+  { path: 'admin', component: BoardAdminComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserModule,
-    RouterModule.forRoot(routes,{
-      useHash: true
-    })
-  ],
-  exports: [
-  ],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }
