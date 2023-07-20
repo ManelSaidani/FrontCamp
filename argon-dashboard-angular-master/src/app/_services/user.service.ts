@@ -30,4 +30,8 @@ export class UserService {
   getCurrentUser(): Observable<any> {
     return this.http.get(AppConstants.API_URL + 'user/me', httpOptions);
   }
+  fetchUsers(): Observable<any[]> {
+    return this.http.get<any[]>(AppConstants.API_URL + 'allusers');
+  }
+
 }
