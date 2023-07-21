@@ -8,7 +8,7 @@ import { UserService } from 'src/app/_services/user.service';
   styleUrls: ['./board-admin.component.scss']
 })
 export class BoardAdminComponent implements OnInit {
-
+  editingUser: any; // To store the user being edited
   content: string;
   users: any;
 
@@ -46,5 +46,32 @@ export class BoardAdminComponent implements OnInit {
       }
     );
   }
+  editUser(user: any) {
+    // Create a copy of the user object to avoid directly modifying the original object
+    this.editingUser = { ...user };
+  }
 
+  handleUpdateUser(updatedUser: any) {
+    if (updatedUser) {
+      // If the updated user is not null, it means the user clicked the "Update" button
+      // Perform the update logic here (similar to the updateUser() method in the previous approach)
+
+      // For example, you can call the UserService method to update the user on the backend
+      this.userService.updateUser(updatedUser.id, updatedUser).subscribe(
+        (updatedUserResponse) => {
+          // Replace the original user with the updated user in the users array
+          const index = this.users.findIndex(user => user.id === updatedUser.id);
+          if (index !== -1) {
+            this.users[index] = updatedUserResponse;
+          }
+        },
+        (error) => {
+          console.error('Error updating user:', error);
+        }
+      );
+    }
+
+    // Reset the editingUser to null to close the modal
+    this.editingUser = null;
+  }
 }
